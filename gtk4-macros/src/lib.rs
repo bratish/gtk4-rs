@@ -42,18 +42,20 @@ use syn::{parse_macro_input, DeriveInput};
 ///
 ///     #[derive(Debug, Default, CompositeTemplate)]
 ///     #[template(file = "test/template.ui")]
-///     pub struct MyWidget {
+///     pub struct MyDialog {
 ///         #[template_child]
 ///         pub label: TemplateChild<gtk::Label>,
 ///         #[template_child(id = "my_button_id")]
 ///         pub button: TemplateChild<gtk::Button>,
+///         #[template_child(internal = true)]
+///         pub ok_button: TemplateChild<gtk::Button>,
 ///     }
 ///
 ///     #[glib::object_subclass]
-///     impl ObjectSubclass for MyWidget {
-///         const NAME: &'static str = "MyWidget";
-///         type Type = super::MyWidget;
-///         type ParentType = gtk::Box;
+///     impl ObjectSubclass for MyDialog {
+///         const NAME: &'static str = "MyDialog";
+///         type Type = super::MyDialog;
+///         type ParentType = gtk::Dialog;
 ///
 ///         fn class_init(klass: &mut Self::Class) {
 ///             Self::bind_template(klass);
@@ -64,18 +66,19 @@ use syn::{parse_macro_input, DeriveInput};
 ///         }
 ///     }
 ///
-///     impl ObjectImpl for MyWidget {}
-///     impl WidgetImpl for MyWidget {}
-///     impl BoxImpl for MyWidget {}
+///     impl ObjectImpl for MyDialog {}
+///     impl WidgetImpl for MyDialog {}
+///     impl WindowImpl for MyDialog {}
+///     impl DialogImpl for MyDialog {}
 /// }
 ///
 /// glib::wrapper! {
-///     pub struct MyWidget(ObjectSubclass<imp::MyWidget>) @extends gtk::Widget, gtk::Box;
+///     pub struct MyDialog(ObjectSubclass<imp::MyDialog>) @extends gtk::Widget, gtk::Window, gtk::Dialog;
 /// }
 ///
-/// impl MyWidget {
+/// impl MyDialog {
 ///     pub fn new() -> Self {
-///         glib::Object::new(&[]).expect("Failed to create an instance of MyWidget")
+///         glib::Object::new(&[]).expect("Failed to create an instance of MyDialog")
 ///     }
 /// }
 /// ```

@@ -1,15 +1,24 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <interface>
-  <template class="MyWidget" parent="GtkBox">
+  <template class="MyDialog" parent="GtkDialog">
     <child>
-        <object class="GtkLabel" id="label">
+      <object class="GtkBox">
+        <child>
+          <object class="GtkLabel" id="label">
             <property name="label">Some label</property>
-        </object>
-    </child>
-    <child>
-        <object class="GtkButton" id="my_button">
+          </object>
+        </child>
+        <child>
+          <object class="GtkButton" id="my_button">
             <property name="label">Some button</property>
-        </object>
+          </object>
+        </child>
+      </object>
+    </child>
+    <child internal-child="action_area">
+      <object class="GtkButton" id="ok_button">
+        <property name="label">Ok</property>
+      </object>
     </child>
   </template>
 </interface>
